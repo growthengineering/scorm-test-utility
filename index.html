@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>GE SCORM Test Utility</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- <link rel="stylesheet" href=""> -->
+    </head>
+    <body>
+        <h1>GE SCORM Test Utility</h1>
+        <p id="status">Welome! Hit the find API button to get started.</p>
+
+        <h2>Ready?</h2>
+        <button onclick="findApiAdapter()">Find SCORM API Adapter</button><br/>
+        <button onclick="start()">Start Session</button>
+
+        <h2>Set data</h2>
+        <label for="set_key">Key</label>
+        <input type="text" name="set_key" />
+        <label for="set_value">Value</label>
+        <input type="text" name="set_value" />
+        <button onclick="setData()">Set</button>
+
+        <h2>Get data</h2>
+        <label for="get_key">Key</label>
+        <input type="text" name="get_key" />
+        <label for="set_value">Value</label>
+        <input type="text" name="get_value" readonly />
+        <button onclick="getData()">Get</button>
+
+        <h2>Done?</h2>
+        <button onclick="end()">END SESSION</button>
+
+        <h2>Reference</h2>
+        <p>Explore the SCORM 1.2 data model to find accepted keys <a href="https://scorm.com/scorm-explained/technical-scorm/run-time/run-time-reference/">here</a>.</p>
+
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        <script src="js/api.js" ></script>
+        <script type="text/javascript">
+            var api = null;
+
+            function output(text)
+            {
+                console.log(text);
+            }
+
+            function findApiAdapter()
+            {
+                api = getAPI();
+
+                if (api) {
+                    output("API found!");
+                }
+            }
+
+            function start()
+            {
+                api.LMSInitialize("");
+            }
+
+            function setData()
+            {
+                var key = document.querySelector('[name="set_key"]').value;
+                var value = document.querySelector('[name="set_value"]').value;
+                api.LMSSetValue(key, value);
+            }
+
+            function getData()
+            {
+                var key = document.querySelector('[name="get_key"]').value;
+                var value = api.LMSGetValue(key);
+                document.querySelector('[name="get_value"]').value = value;
+            }
+
+            function end()
+            {
+                api.LMSFinish("");
+            }
+
+        </script>
+    </body>
+</html>
