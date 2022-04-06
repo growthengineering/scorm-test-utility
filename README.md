@@ -1,2 +1,2 @@
 # scorm-test-utility
-A small SCORM package for demonstrating SCORM functionality 
+A small SCORM 1.2 package for demonstrating SCORM functionality.
